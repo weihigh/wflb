@@ -49,39 +49,41 @@
 	<script type="text/javascript">
 		//关于chrome的图片慢加载，导致offsetleft读取不到图片宽度，可以在上传github以后，看看效果，发现有问题，则便有动力去解决这个问题
 		//引入img.onload。。。
-		var oM_unit = document.getElementById("m_unit");
-		var oWrap = document.getElementById("wrap");
-		var lists = oM_unit.getElementsByTagName("li");
-		var lis = oWrap.getElementsByTagName("li");
+		window.onload = function(){
+			var oM_unit = document.getElementById("m_unit");
+			var oWrap = document.getElementById("wrap");
+			var lists = oM_unit.getElementsByTagName("li");
+			var lis = oWrap.getElementsByTagName("li");
 
-		console.log(lists);
-		var	timer;
-		var now_left = 0;
-		oM_unit.innerHTML += oM_unit.innerHTML;
-		// console.log(typeof oM_unit.innerHTML);
+			console.log(lists);
+			var	timer;
+			var now_left = 0;
+			oM_unit.innerHTML += oM_unit.innerHTML;
+			// console.log(typeof oM_unit.innerHTML);
 
-		var goback_left = lists[lists.length/2].offsetLeft;
-		//折返点goback_left
-		setTimer();
-		oWrap.onmouseover = function(){
-			clearInterval(timer);
-		}
-		oWrap.onmouseout = function(){
+			var goback_left = lists[lists.length/2].offsetLeft;
+			//折返点goback_left
 			setTimer();
-		}
-		//继续做，假设图片的宽度不一样，这样无法设置-2090，必须通过dom获取折返值，写出相应的代码。
+			oWrap.onmouseover = function(){
+				clearInterval(timer);
+			}
+			oWrap.onmouseout = function(){
+				setTimer();
+			}
+			//继续做，假设图片的宽度不一样，这样无法设置-2090，必须通过dom获取折返值，写出相应的代码。
 
-		function setTimer(){
-			clearInterval(timer);
-			//此处我加了var timer,导致程序有问题。以后要注意！
-			timer = setInterval(function(){
-				now_left -= 10;
-				if (now_left < -goback_left) {
-					now_left = -10;
-				}
-				oM_unit.style.left = now_left + "px";
-			},20);
-		}
+			function setTimer(){
+				clearInterval(timer);
+				//此处我加了var timer,导致程序有问题。以后要注意！
+				timer = setInterval(function(){
+					now_left -= 10;
+					if (now_left < -goback_left) {
+						now_left = -10;
+					}
+					oM_unit.style.left = now_left + "px";
+				},20);
+			}
+		};	
 	</script>
 </body>
 </html>
