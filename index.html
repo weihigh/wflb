@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="./reset.css">
+	<style>
+		.wrap{
+			position: relative;
+			width: 840px;
+			height: 130px;
+			border: 5px solid grey;
+			margin: 50px auto;
+			overflow: hidden;
+		}
+		.wrap .m_unit{
+			position: absolute;
+			overflow: hidden;
+			top: 0;
+			left: 0;
+			width: 5000px;
+		}
+		.wrap .m_unit ul li{
+			overflow: hidden;
+			float: left;
+			font-size: 0;
+			margin-left: 10px;
+		}
+	</style>
+</head>
+<body>
+	<div class="wrap" id="wrap">
+		<div class="m_unit" id="m_unit">
+			<ul>
+				<li><a href="#"><img src="images/shuzi/0.png" alt=""></a></li>
+				<li><a href="#"><img src="images/shuzi/1.png" alt=""></a></li>
+				<li><a href="#"><img src="images/shuzi/2.png" alt=""></a></li>
+				<li><a href="#"><img src="images/shuzi/3.png" alt=""></a></li>
+				<li><a href="#"><img src="images/shuzi/4.png" alt=""></a></li>
+				<li><a href="#"><img src="images/shuzi/5.png" alt=""></a></li>
+				<li><a href="#"><img src="images/shuzi/6.png" alt=""></a></li>
+				<!-- <li><a href="#"><img src="images/shuzi/pangzi.png" alt=""></a></li> -->
+				<li><a href="#"><img src="images/shuzi/7.png" alt=""></a></li>
+				<li><a href="#"><img src="images/shuzi/8.png" alt=""></a></li>
+				<li><a href="#"><img src="images/shuzi/9.png" alt=""></a></li>
+			</ul>
+		</div>
+	</div>
+	<script type="text/javascript">
+		//关于chrome的图片慢加载，导致offsetleft读取不到图片宽度，可以在上传github以后，看看效果，发现有问题，则便有动力去解决这个问题
+		//引入img.onload。。。
+		var oM_unit = document.getElementById("m_unit");
+		var oWrap = document.getElementById("wrap");
+		var lists = oM_unit.getElementsByTagName("li");
+		var lis = oWrap.getElementsByTagName("li");
+
+		console.log(lists);
+		var	timer;
+		var now_left = 0;
+		oM_unit.innerHTML += oM_unit.innerHTML;
+		// console.log(typeof oM_unit.innerHTML);
+
+		var goback_left = lists[lists.length/2].offsetLeft;
+		//折返点goback_left
+		setTimer();
+		oWrap.onmouseover = function(){
+			clearInterval(timer);
+		}
+		oWrap.onmouseout = function(){
+			setTimer();
+		}
+		//继续做，假设图片的宽度不一样，这样无法设置-2090，必须通过dom获取折返值，写出相应的代码。
+
+		function setTimer(){
+			clearInterval(timer);
+			//此处我加了var timer,导致程序有问题。以后要注意！
+			timer = setInterval(function(){
+				now_left -= 10;
+				if (now_left < -goback_left) {
+					now_left = -10;
+				}
+				oM_unit.style.left = now_left + "px";
+			},20);
+		}
+	</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
